@@ -1,0 +1,16 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(cors());
+
+app.get('/', async (req, res) => {
+    res.send("Hello from the other side.");
+});
+//app.use('/api/tracks', tracks);
+
+app.listen(process.env.PORT || 5001);
+console.log("Api running on port 5001.");

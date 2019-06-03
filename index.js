@@ -8,7 +8,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', async (req, res) => {
-    res.send("Hello from the other side.");
+    res.send("Hello from the other side");
+});
+
+app.post('/', async (req, res) => {
+    console.log(req.body);
+    res.send( req.body);
 });
 //app.use('/api/tracks', tracks);
 

@@ -24,10 +24,8 @@ app.post('/upload', async (req, res) => {
 
 const newVideoUpload = async (data) => {
     const videos = await loadNewVideoEvents();
-    await videos.insertOne({
-        name: JSON.stringify(data),
-      });
-    return "Check it!";
+    await videos.insertOne(data);
+    return "Uploaded Successfully.";
 };
 
 const loadNewVideoEvents = async () => {

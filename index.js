@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const newUploadService = require('./services/NewUploadService').default;
+const mongodb = require('mongodb');
 
 const app = express();
 
@@ -18,9 +18,25 @@ app.post('/', async (req, res) => {
 });
 
 app.post('/upload', async (req, res) => {
-    console.log(req.body);
-    res.send(await newUploadService.newVideoUpload());
+    const result = await newVideoUpload(req.body);
+    res.send(result);
 });
 
-app.listen(process.env.PORT || 5000);
+const newVideoUpload = async (data) => {
+    const videos = await loadNewVideoEvents();
+    await videos.insertOne({
+        name: JSON.stringify(data),
+      });
+    return "Check it!";
+};
+
+const loadNewVideoEvents = async () => {
+    const client = await mongodb.MongoClient.connect
+    ('mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1', {
+        useNewUrlParser: true
+    });
+    return client.db('nurenqa1').collection('newvideoevents');
+};
+
+app.listen(process.env.PORT || 80);
 console.log("Api running");

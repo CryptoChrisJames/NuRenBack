@@ -30,8 +30,8 @@ const newVideoUpload = async (data) => {
     });
     await keys.insertOne({
         key: data.Records[0].s3.object.key,
-    })
-    return "Check it!";
+    });
+    return "Uploaded Successfully.";
 };
 
 const loadNewVideoEvents = async () => {

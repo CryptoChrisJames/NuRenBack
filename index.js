@@ -28,7 +28,7 @@ const newVideoUpload = async (data) => {
     await videos.insertOne({
         eventTime: data.Records[0].eventTime,
         bucket: data.Records[0].s3.bucket.name,
-        object: data.Records[0].s3.object.key,
+        video: data.Records[0].s3.object.key,
 
     });
     await keys.insertOne({

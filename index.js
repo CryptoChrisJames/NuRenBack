@@ -22,6 +22,10 @@ app.post('/upload', async (req, res) => {
     res.send(result);
 });
 
+app.post('/videoupload', async (req, res) => {
+    res.send('sup');
+});
+
 const newVideoUpload = async (data) => {
     const videos = await loadNewVideoEvents();
     const keys = await loadNewVideoKeys();
@@ -53,5 +57,5 @@ const loadNewVideoKeys = async () => {
     return client.db('nurenqa1').collection('nurenvideokeys');
 };
 
-app.listen(process.env.PORT || 80);
+app.listen(process.env.PORT || 7657);
 console.log("Video Upload Api running");

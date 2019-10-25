@@ -63,5 +63,12 @@ const currentENV = () => {
     return env
 }
 
-app.listen(process.env.PORT || 7570);
+const currentPORT = () => {
+    if(env === 'development' || env === 'dev'){
+        return '8000';
+    }
+    return '80'
+}
+
+app.listen(currentPORT());
 console.log("Video Upload Api running", currentENV());

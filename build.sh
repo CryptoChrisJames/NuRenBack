@@ -6,7 +6,7 @@ echo $_imagetag
 # Initializing functions
 buildImage()
 {    
-    docker build --no-cache --build-args PROJECTENV=$_env -t "$_imagetag" .
+    docker build --no-cache --build-arg PROJECTENV=$_env -t "$_imagetag" .
 }
 
 awsLogin()

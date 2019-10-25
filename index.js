@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongodb = require('mongodb');
+const config = require('./config.json');
 
 const app = express();
+
+const env = process.env.PROJECTENV;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,10 +23,6 @@ app.post('/', async (req, res) => {
 app.post('/upload', async (req, res) => {
     const result = await newVideoUpload(req.body);
     res.send(result);
-});
-
-app.post('/videoupload', async (req, res) => {
-    res.send('sup');
 });
 
 const newVideoUpload = async (data) => {
@@ -43,19 +42,26 @@ const newVideoUpload = async (data) => {
 
 const loadNewVideoEvents = async () => {
     const client = await mongodb.MongoClient.connect
-    ('mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1', {
+    (config.env[currentENV()].connectionString.toString(), {
         useNewUrlParser: true
     });
-    return client.db('nurenqa1').collection('newvideoevents');
+    return client.db(config.env[currentENV()].db).collection('newvideoevents');
 };
 
 const loadNewVideoKeys = async () => {
     const client = await mongodb.MongoClient.connect
-    ('mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1', {
+    (config.env[currentENV()].connectionString.toString(), {
         useNewUrlParser: true
     });
-    return client.db('nurenqa1').collection('nurenvideokeys');
+    return client.db(config.env[currentENV()].db).collection('nurenvideokeys');
 };
 
-app.listen(process.env.PORT || 7657);
-console.log("Video Upload Api running");
+const currentENV = () => {
+    if(!env){
+        return 'development';
+    }
+    return env
+}
+
+app.listen(process.env.PORT || 7570);
+console.log("Video Upload Api running", currentENV());

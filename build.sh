@@ -1,21 +1,12 @@
 # Initializing Variables
-_imagetag=nurenupload
+_env=$1
+_imagetag=nurenuploadevent-$_env
 echo $_imagetag
 
 # Initializing functions
 buildImage()
 {    
-    docker build -t "$_imagetag" .
-}
-
-removeOldImage()
-{
-    docker rmi $_imagetag
-}
-
-pruneImages()
-{
-    docker image prune --force
+    docker build --no-cache --build-args PROJECTENV=$_env -t "$_imagetag" .
 }
 
 awsLogin()
@@ -29,20 +20,11 @@ ecrPush()
     docker push 614222560511.dkr.ecr.us-east-2.amazonaws.com/$_imagetag:latest
 }
 
-
-
-pruneImages
-echo $?
-
-if [ "$(docker images $_imagetag)" == "" ]; then
-    echo $?
-    buildImage
-else
-    echo $?
-    removeOldImage
-    buildImage
-fi
+buildImage
 
 awsLogin
 
 ecrPush
+
+
+exit 0

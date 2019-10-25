@@ -1,0 +1,12 @@
+{
+    "env" : {        
+        "development" : {
+            "db" : "nurenqa1",
+            "connectionString" : "mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1"
+        },
+        "qa" : {
+            "db" : "nurenqa1",
+            "connectionString" : "mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1"
+        }
+    }
+}

@@ -27,7 +27,7 @@ app.post('/upload', async (req, res) => {
 
 const newVideoUpload = async (data) => {
     const keys = await loadNewVideoKeys();
-    const videos = loadNewVideoEvents();
+    const videos = await loadNewVideoEvents();
     await videos.insertOne({
         eventTime: data.Records[0].eventTime,
         bucket: data.Records[0].s3.bucket.name,

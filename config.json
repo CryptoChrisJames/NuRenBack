@@ -7,6 +7,10 @@
         "qa" : {
             "db" : "nurenqa1",
             "connectionString" : "mongodb://ObsidianTech:Obsidian12!@ds131737.mlab.com:31737/nurenqa1"
+        },
+        "prod" : {
+            "db": "nurenprod",
+            "connectionString" : "mongodb://ObsidianTech:Obsidian12!@ds237308.mlab.com:37308/nurenprod"
         }
     }
 }

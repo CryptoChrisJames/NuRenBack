@@ -26,18 +26,16 @@ app.post('/upload', async (req, res) => {
 });
 
 const newVideoUpload = async (data) => {
-    const videos = await loadNewVideoEvents();
-    await videos.insertOne(data);
-    //const keys = await loadNewVideoKeys();
-    // await videos.insertOne({
-    //     eventTime: data.Records[0].eventTime,
-    //     bucket: data.Records[0].s3.bucket.name,
-    //     video: data.Records[0].s3.object.key,
+    const keys = await loadNewVideoKeys();
+    await videos.insertOne({
+        eventTime: data.Records[0].eventTime,
+        bucket: data.Records[0].s3.bucket.name,
+        video: data.Records[0].s3.object.key,
 
-    // });
-    // await keys.insertOne({
-    //     key: data.Records[0].s3.object.key,
-    // });
+    });
+    await keys.insertOne({
+        key: data.Records[0].s3.object.key,
+    });
     return "Uploaded Successfully.";
 };
 
